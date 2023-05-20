@@ -37,4 +37,5 @@ public class Belonging {
     public int hashCode() {
         return Objects.hash(id);
     }
+
 }

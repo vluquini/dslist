@@ -1,11 +1,11 @@
 package com.projeto.dslist.services;
 
 import com.projeto.dslist.dtos.GameDTO;
-import com.projeto.dslist.dtos.GameListDTO;
 import com.projeto.dslist.dtos.GameMinDTO;
 import com.projeto.dslist.entities.Game;
 import com.projeto.dslist.projections.GameMinProjection;
 import com.projeto.dslist.repositories.GameRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +17,61 @@ public class GameService {
 
     @Autowired
     private GameRepository gameRepository;
+
+    @Transactional
+    public GameDTO createGame(GameDTO gameDTO) {
+        Game game = new Game();
+        BeanUtils.copyProperties(gameDTO, game);
+        Game savedGame = gameRepository.save(game);
+        return new GameDTO(savedGame);
+    }
+
+    @Transactional
+    public GameDTO updateGame(Long id, GameDTO updatedGameDTO){
+        Game existingGame = gameRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Jogo não encontrado"));
+
+        existingGame.setTitle(updatedGameDTO.getTitle());
+        existingGame.setYear(updatedGameDTO.getYear());
+        existingGame.setGenre(updatedGameDTO.getGenre());
+        existingGame.setPlatforms(updatedGameDTO.getPlatforms());
+        existingGame.setScore(updatedGameDTO.getScore());
+        existingGame.setImgUrl(updatedGameDTO.getImgUrl());
+        existingGame.setShortDescription(updatedGameDTO.getShortDescription());
+        existingGame.setLongDescription(updatedGameDTO.getLongDescription());
+
+        gameRepository.save(existingGame);
+
+        return new GameDTO(existingGame);
+    }
+    /* Outra forma de implementar este mesmo método, usando Optionals.
+    public GameDTO updateGame(Long id, GameDTO updatedGameDTO) {
+        Optional<Game> optionalGame = gameRepository.findById(id);
+        if (optionalGame.isEmpty()) {
+            throw new IllegalArgumentException("Jogo não encontrado");
+        }
+        Game existingGame = optionalGame.get();
+        existingGame.setTitle(updatedGameDTO.getTitle());
+        existingGame.setYear(updatedGameDTO.getYear());
+        existingGame.setGenre(updatedGameDTO.getGenre());
+        existingGame.setPlatforms(updatedGameDTO.getPlatforms());
+        existingGame.setScore(updatedGameDTO.getScore());
+        existingGame.setImgUrl(updatedGameDTO.getImgUrl());
+        existingGame.setShortDescription(updatedGameDTO.getShortDescription());
+        existingGame.setLongDescription(updatedGameDTO.getLongDescription());
+
+        Game updatedGame = gameRepository.save(existingGame);
+
+        return new GameDTO(updatedGame);
+}
+     */
+
+    @Transactional
+    public void deleteGame(Long id){
+        Game existingGame = gameRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("Jogo não encontrado"));
+        gameRepository.deleteById(id);
+    }
 
     @Transactional(readOnly = true) // boa prática
     public List<GameMinDTO> findAll(){
@@ -37,5 +92,6 @@ public class GameService {
         List<GameMinProjection> result = gameRepository.searchByList(listId);
         return result.stream().map(x -> new GameMinDTO(x)).toList();
     }
+
 }
 
