@@ -1,6 +1,5 @@
 package com.projeto.dslist.controllers;
 
-import com.projeto.dslist.dtos.GameDTO;
 import com.projeto.dslist.dtos.GameListDTO;
 import com.projeto.dslist.dtos.GameMinDTO;
 import com.projeto.dslist.services.GameListService;

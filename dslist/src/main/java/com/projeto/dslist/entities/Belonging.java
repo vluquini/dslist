@@ -2,7 +2,6 @@ package com.projeto.dslist.entities;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

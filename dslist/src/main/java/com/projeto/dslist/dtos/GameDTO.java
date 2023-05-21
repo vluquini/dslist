@@ -1,14 +1,9 @@
 package com.projeto.dslist.dtos;
 
 import com.projeto.dslist.entities.Game;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 
 @Getter
 @Setter

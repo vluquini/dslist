@@ -39,11 +39,6 @@ git clone https://github.com/seu-usuario/dslist.git
 
 3. Certifique-se de ter as dependências do Maven resolvidas.
 
-4. Execute o aplicativo Spring Boot:
-
-```
-mvn spring-boot:run
-```
 
 ## Projeto de Referência
 

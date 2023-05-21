@@ -2,13 +2,9 @@ package com.projeto.dslist.controllers;
 
 import com.projeto.dslist.dtos.GameDTO;
 import com.projeto.dslist.dtos.GameMinDTO;
-import com.projeto.dslist.entities.Game;
 import com.projeto.dslist.repositories.GameRepository;
 import com.projeto.dslist.services.GameService;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
